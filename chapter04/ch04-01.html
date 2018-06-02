@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <script>
+        // 'use strict';
+        //可以为引用类型动态添加属性
+        var person = new Object();
+        person.name = "liuyu";
+        console.log("person.name:"+person.name);
+
+        //不能为基本数据类型：Null，Undefined，String，Number，Boolean动态添加属性
+        var name = "liuyu";
+        name.age = 11; //严格模式下报错：Uncaught ReferenceError
+        console.log("name age:"+name.age);
+        //基本数据类型赋值操作为创建副本，引用类型赋值，是传递引用地址
+        var person1 = person;
+        var name1 = name;
+
+        console.log("person instanceOf Object:"+(person instanceof Object));
+
+        //js中没有块级的作用域，因此可以在条件判断中进行变量的定义；
+        if(true){
+            var truemsg = "this true message";
+        }
+        console.log('trueMsg:'+truemsg);
+
+        function add(add1, add2){
+            sum = add1 + add2;
+            return sum;
+        }
+
+        var result = add(1,2);
+        //严格模式下报错：Uncaught ReferenceError
+        console.log(`result:${result}; sum : ${sum}`);
+    </script>
+</header>
+
+<body>
+
+</body>
+
+</html>
