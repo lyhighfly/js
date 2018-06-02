@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <script>
+        "use strict";
+        // 使用var定义的变量，是该变量作用域中的一个局部变量，脱离作用域就会被销毁；
+        var message = "hi world";
+        console.log(typeof message);
+        console.log(typeof null);//null被认为是一种特殊object, undefined 是派生在null，因此 undefined == object返回true
+        var undefine;
+        console.log(typeof undefine);//undefine没有赋值，因此是个undefined类型
+        console.log("undefine == undefined:"+(undefine == undefined));
+        // console.log(under);//未声明的变量会报错：ch03-01.html:13 Uncaught ReferenceError: under is not defined
+        console.log("under type:"+(typeof under));//未声明变量却可以使用typeof，返回undefined
+
+        var car = null;
+        console.log("car type:"+(typeof car));
+
+        var intNum = 99;
+        // var octalVal = 079;严格模式下，是不支持八进制写法的
+        // var octalInval = 08;
+        var hexNum = 0x123;//十六进制写法
+        console.log(`intNum:${intNum}; hexNum:${hexNum}`);
+
+        //isFinite用于判断一个数是否是无穷的
+        console.log("result is infinity:"+(isFinite(Number.MAX_VALUE+Number.MAX_VALUE)));
+        //isNaN用于判断是否是个数值
+        console.log("result is NaN:"+(isNaN(Number.MAX_VALUE+Number.MAX_VALUE)));
+
+        var num1 = Number("11hello");
+        var num2 = Number("");
+        var num3 = Number("111");
+        var num4 = parseInt("ff");
+        var num5 = parseInt(null);
+        var num6 = Number(null);
+        console.log(`num1:${num1};num2:${num2};num3:${num3};num4:${num4};num5:${num5};num6:${num6};`)
+        var num7 = parseInt('AF');
+        var num8 = parseInt('AF', 16);//指定转换类型
+        console.log(`num7:${num7};num8:${num8}`);
+
+        var num9 = parseFloat('1234abc');
+        var num10 = parseFloat('0xa');
+        var num11 = parseFloat('22.33.44');
+        var num12 = parseFloat('098.8');
+        console.log(`num9:${num9};num10:${num10};num11:${num11};num12:${num12};`);
+
+        var num13 = 10;
+        var num14 = true;
+        var num15 = null;
+        var num16;
+        console.log(`num13:${num13.toString()};num14:${num14.toString()};num15:${num15};num16:${num16};`);
+        console.log(`num15:${String(num15)};num16:${String(num16)}`);
+
+        var Studenter = {
+            name:'liuyu',
+            age:22
+        }
+        console.log(`Studenter has Property: name: ${Studenter.hasOwnProperty('name')}, height:${Studenter.hasOwnProperty('height')}`);
+
+        var num17 = -18;
+        console.log(`num17 in bin:${num17.toString(2)}`);
+
+        console.log(`${Number('1234abc')},"1234abc" == 1234:${'1234abc' == 1234}`);
+        //相等，不相等：==，!=比较前会进行类型转换。全等，全不等：===，!==不会进行类型转换
+        console.log(`"55"==55:${"55"==55}; "55"===55:${"55"===55}`);
+        //规定null == undefined ：true; null === undefined：false;
+
+        console.log(`null == undefined:${null == undefined}; null === undefined:${null === undefined}`);
+        function test(){
+            var msg = "hi world";//test函数外，msg未定义；
+            console.log("click first function");
+        }
+
+        function test(){
+            var msg_global = "hi world";//msg_global为全局变量，test1函数外，也可以是使用；
+            console.log("click second function");
+        }
+        //js中因为函数参数只是一种提供便利，而不是一定要调用是完全符合，所以就么有重载功能，因此，出现同名的function，只保留最后一次定义的function；
+    </script>
+</header>
+
+<body>
+    <p>Hello world</p>
+    <input type="button" onclick="test()" value="click"/>
+</body>
+
+</html>
