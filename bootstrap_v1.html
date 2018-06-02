@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <title>bootstrap_v1</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>hello world!!!</h1>
+        <div class="row">
+            <div class="col-sm-4">
+                <h3 style="text-align:center">123456789</h3>
+                <ol>
+                    <li>Item1</li>
+                    <li>Item2</li>
+                    <li>Item3</li>
+                    <li>Item4</li>
+                </ol>
+                <ul>
+                    <li>Item1</li>
+                    <li>Item1</li>
+                    <li>Item1</li>
+                </ul>
+                <ul class="list-inline">
+                    <li>Item1</li>
+                    <li>Item1</li>
+                    <li>Item1</li>
+                </ul>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="input you name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputfile">input file</label>
+                        <input type="file" id="inputfile">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">check
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <div>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" value="checkbox1">复选1
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" value="checkbox1">复选2
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" value="checkbox1">复选3
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4 " style="text-align:center">
+                <h3 title="99999">123456789</h3>
+                <abbr title="World Wide Web">WWW</abbr>
+                <br>
+                <pre class="col-sm-8">
+Object obj = new Object();
+System.out.println(obj.toString());
+                </pre>
+                <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="col-sm-4 ">
+                <h3>123456789</h3>
+                <p class="text-danger">这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。</p>
+                <table class="table table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Saving</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>January</td>
+                            <td>$100</td>
+                        </tr>
+                        <tr>
+                            <td>Junly</td>
+                            <td>$1000</td>
+                        </tr>
+                        <tr>
+                            <td>May</td>
+                            <td>$5100</td>
+                        </tr>
+                        <tr>
+                            <td>April</td>
+                            <td>$1100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 visible-sm">
+                <img class="img-responsive" src="funny.jpg">
+            </div>
+            <!-- <div class="col-sm-4">
+                <img class="img-responsive" src="funny.jpg" >
+            </div>
+            <div class="col-sm-4">
+                <img class="img-responsive" src="funny.jpg" >
+            </div> -->
+            <div class="col-sm-4">
+                <button type="button" class="btn">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    <span class="glyphicon-class">Left</span>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <div class="btn-group dropup">
+                    <button type="button" class="btn btn-primary">Select
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret" />
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                        </ul>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary">原始
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">功能</a>
+                        </li>
+                        <li>
+                            <a href="#">另一个功能</a>
+                        </li>
+                        <li>
+                            <a href="#">其他</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">分离的链接</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <div class="row">
+            <h2>标签式导航菜单</h2>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#">Tab_1</a>
+                </li>
+                <li>
+                    <a href="#">Tab_2</a>
+                </li>
+                <li>
+                    <a href="#">Tab-3</a>
+                </li>
+                <li>
+                    <a href="#">Tab_4</a>
+                </li>
+            </ul>
+            <ul class="nav nav-pills nav-justified">
+                <li class="active">
+                    <a href="#">Tab_1</a>
+                </li>
+                <li>
+                    <a href="#">Tab_2</a>
+                </li>
+                <li>
+                    <a href="#">Tab-3</a>
+                </li>
+                <li>
+                    <a href="#">Tab_4</a>
+                </li>
+            </ul>
+            <!-- <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">SsssVN</a>
+                </li>
+                <li>
+                    <a href="#">iOS</a>
+                </li>
+                <li>
+                    <a href="#">VB.Net</a>
+                </li>
+                <li>
+                    <a href="#">Java</a>
+                </li>
+                <li>
+                    <a href="#">PHP</a>
+                </li>
+            </ul> -->
+        </div>
+        <div class="row">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a claas="navbar-brand" href="#">菜鸟课程</a>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="#">iOS</a>
+                            </li>
+                            <li>
+                                <a href="#">Android</a>
+                            </li>
+                            <li>
+                                <a href="#">WindowPhone</a>
+                            </li>
+                            <li>
+                                <a href="#">Plat</a>
+                            </li>
+                            <li>
+                                <a href="#">XXXX</a>
+                            </li>
+                            <li>
+                                <a href="#">YYYYY</a>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+            </div>
+        </div>
+        <div class="row">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">Category</a>
+                </li>
+                <li>
+                    <a href="#">Sport</a>
+                </li>
+            </ol>
+        </div>
+        <div class="row">
+            <ul class="pager">
+                <li class="previous">
+                    <a href="#">Pre</a>
+                </li>
+                <li class="next">
+                    <a href="#">Next</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="progress progress-striped active">
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70" style="width:40%;">
+            </div>
+            <!-- <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" 
+                        aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                        <span class="sr-only">40% 完成</span>
+                    </div>
+                </div> -->
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#mymodal" data-backdrop="true">演示模态框</button>
+            <div class="modal fade" id="mymodal" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button> -->
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                            <h4 class="modal-title" id="mymodallabel">模态显示标题</h4>
+                        </div>
+                        <div class="modal-body">文本显示内容区域</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary">提交</button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        $(function(){
+            $('#mymodal').on('hide.bs.modal', function(){
+                alert('模态框被关闭了~~~')
+            })
+        });
+        </script>
+</body>
+
+</html>

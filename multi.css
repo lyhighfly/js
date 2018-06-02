@@ -1,0 +1,113 @@
+h2 {
+    color: blue;
+    background:red;
+    text-align:center;
+    padding:50px;
+}
+
+h1 {
+    padding-top:20px;
+    padding-bottom: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-style: solid;
+    border-width: 20px;
+    border-color: burlywood;
+    position: relative;
+    left: 50px;
+}
+.important {
+    font-weight: bold;
+}
+.warning {
+    font-style: italic;
+}
+.important.warning {
+    background-color: #FF0000;
+}
+ul {
+    float:left;
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    list-style-type: none;
+}
+li{
+    display: inline;
+}
+
+#reader {
+    background-color: aqua;
+    width: 200px;
+    height: 100px;
+    overflow: scroll;
+}
+body {
+    background-image: url(./gif_bg.gif);
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y:0%;
+    background-attachment:fixed;
+}
+
+p {
+    text-indent:2em;
+    font-size: 20px;
+    word-spacing:2em;
+    text-decoration:underline;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    padding:20px;
+    color: hsla(hue, saturation, lightness, alpha)
+}
+
+a:link {color:#FF0000;}    /* 未被访问的链接 */
+a:visited {color:#00FF00;} /* 已被访问的链接 */
+a:hover {color:#FF00FF;}   /* 鼠标指针移动到链接上 */
+a:active {color:#0000FF;}  /* 正在被点击的链接 */
+
+table, th, td{
+    border:2px solid black;
+    border-collapse: collapse;
+}
+
+img{
+    outline-color: #FF0000;
+    outline-width: 5px;
+}
+.cities {
+    background-color: black;
+    color: white;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+#header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+#nav {
+    line-height: 30px;
+    background-color: #eeeeee;
+    height: 300px;
+    width: 100px;
+    float: left;
+    padding: 5px;
+}
+
+#section {
+    width: 350px;
+    float: left;
+    padding: 10px;
+}
+
+#footer {
+    background-color: black;
+    color: white;
+    clear: both;
+    text-align: center;
+    padding: 5px;
+}

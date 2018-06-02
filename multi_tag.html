@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!-- 用于说明文档的类型：html5的版本 -->
+<html>
+
+<head>
+    <!-- 标签页 title -->
+    <title>网页标题</title>
+    <link type="image/x-icon" href="flavor_icon.png" />
+    <!-- head中可以添加 title base link meta script style -->
+    <link rel="stylesheet" type="text/css" href="multi.css" />
+</head>
+
+<body>
+    <h1 style="background-color:blueviolet;color:brown;font-size:6em;text-align:center">第一个标题</h1>
+    <!-- title用于悬停时的提示内容 -->
+    <h2 title="h2h2h2h2">第一个标题</h2>
+    <h3 style="font-family:Verdana, Geneva, Tahoma, sans-serif">第一个标题</h3>
+    <ul class="important warning">
+        <li>Link one</li>
+        <li>Link two</li>
+        <li>Link three</li>
+        <li>Link four</li>
+    </ul>
+    <hr/>
+    <h4>第一个标题</h4>
+    <!-- 注释内容，不予显示 -->
+    <hr/>
+    <h5 class="cities">第一个标题</h5>
+    <h6>第一个标题</h6>
+    <p>第一个段落</p>
+    <!-- target用于定义链接在哪里显示 -->
+    <a href="http://www.baidu.com" target="_blank">baidu</a>
+    <br/>
+    <!-- # 表示定位锚点，可以在url中直接传递锚点信息 -->
+    <a href="#next">自动锚点下一节</a>
+    <a href="#list">列表</a>
+    <br/>
+    <img src="funny.jpg" width="200" height="150">
+    <p>如果想在BeautifulSoup之外使用 NavigableString 对象，需要调用unicode()方法，
+        <br/> 将该对象转换成普通的Unicode字符串，否则就算BeautifulSoup已方法已经执行结束，
+        <br/> 该对象的输出也会带有对象的引用地址，这样会浪费内存。
+    </p>
+    <div id="reader">上路了，准备开始重操那两年的旧业，后悔之前在上家公司做Amlogic和Realtak方案盒子时没有养成写博客的习惯，这算是开篇之作吧，顺带也算是给一个网友的答疑吧。不多说，该篇只是工具讲解而已。 关于Android Studio对于应用层App开发的技巧和配置前面我写过文章分析的，这里不再解释说明，具体查看我的这一片博文《Android
+        Studio入门到精通 》。这里我们主要说明的是用它来看源码的相关配置（该实例依据官方源码android-5.1.1_r14进行配置说明）。 以前在上家公司查看修改源码时还是使用的Eclipse导入部分代码的方式，而现在在android源码中发现有一个development/tools/idegen目录，查了一下发现是生成IDE的project文件（主要是intellij的project文件，其实也就是Android
+        Studio的），所以说福利工具就这么来了，欲知详情，请看下文。
+    </div>
+    <!-- input type:text, radio, submit, password, checkbox, button.... -->
+    <form>
+        First Name:
+        <br/>
+        <input type="text" name="first_name" value="liu" />
+        <br/> Last Name:
+        <br/>
+        <input type="text" name="last_name" value="yu" />
+        <br/>
+        <input type="radio" name="sex" value="male" checked />
+        <input type="radio" name="sex" value="female" />
+        <br/>
+        <select name="job">
+            <option value="student">student</option>
+            <option value="farmer">farmer</option>
+            <option value="lawyer">lawyer</option>
+        </select>
+        <br/>
+        <input type="submit" value="submit" />
+        <br/>
+        <input type="color" />
+        <br/>
+        <input type="date" />
+        <br/>
+        <input type="datetime" />
+        <br/>
+        <input type="search" />
+        <br/>
+        <input type="range" />
+        <br/>
+        <input type="time" />
+        <br/>
+
+        <button type="button" onclick="formclick()">click me</button>
+    </form>
+    <script>
+        function formclick() {
+            // var request = new XMLHttpRequest();
+            // window.alert("net request start");
+            // request.onreadystatechange = function () {
+            //     if (request.readyState === 4) {
+            //         if (reqeust.status === 200) {
+            //             success(request.responseText);
+            //         } else {
+            //             failed(request.status);
+            //         }
+            //     } else {
+            //         console.log("request state:"+request.readyState);
+            //     }
+            // }
+            // request.open('GET', 'http://www.baidu.com');
+            // request.send();
+            console.log("DONE");
+        }
+        console.log(" before setTimeout()");
+        setTimeout(formclick, 3000);
+        new Promise(function(){});
+        console.log("after setTimeout()");
+    </script>
+    <p id="netdata">net_data</p>
+    <b>This text is bold</b>
+    <br/>
+    <strong>This text is Strong</strong>
+    <br/>
+    <big>This text is big</big>
+    <br/>
+    <em>This text is emphasized</em>
+    <br/>
+    <i>This text is italic</i>
+    <br/>
+    <small>This text is small</small>
+    <br/> This text contains
+    <sub>subscript</sub>
+    <br/> This text contains
+    <sup>supscript</sup>
+    <!-- pre格式，包含的文本保持原样，包括空格 -->
+    <pre>
+            This 
+            pre text
+            it will keep        blank     
+        </pre>
+    <!-- code kbd tt samp var用于显示计算机，编程代码 -->
+    <address>
+        Written by liuyu
+        <br/> ChaoYang
+        <br/> BeiJing
+        <br/>
+    </address>
+    老子说：
+    <blockquote>
+        知之者不如好之者，好之者不如乐之者。
+    </blockquote>
+    孔子说：
+    <q>
+        <ins>老子</ins>说得对！</q>
+    <br/>
+    <a name="next">下一节开始的地方</a>
+    <table border="2">
+        <tr>
+            <th>head1</th>
+            <th>head2</th>
+            <th>head3</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>8</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li>Coffee</li>
+        <li>Milk</li>
+        <li>Tee</li>
+    </ul>
+    <ol>
+        <li>Coffee</li>
+        <li>Milk</li>
+        <li>Tee</li>
+    </ol>
+    <a name="list" />
+    <div id="header">
+        <h1>City Gallery</h1>
+    </div>
+    <div id="nav">
+        London
+        <br/> Paris
+        <br/> Tokyo
+        <br/>
+    </div>
+    <div id="section">
+        <h2>London</h2>
+        <p>
+            London is the capital city of England.
+            <br/> It is the most populous city in the United Kingdom,
+            <br/> with a metropolitan area of over 13 million inhabitants.
+        </p>
+    </div>
+    <div id="footer">
+        CopyRight LIUYU
+        <sup>@</sup>
+    </div>
+    <script type="text/javascript">
+        document.write("hello world")
+    </script>
+    <!-- <iframe  width="100%" height="300" src="http://www.baidu.com"/> -->
+</body>
+
+</html>
