@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- doctype 声明文档模式 html5，文档分为混杂模式(quirks mode)和标准模式(standards mode) -->
+<html>
+<header>
+    //顺序解析script内容，知道解析完成才能渲染后续元素，所以建议放在body的最后面
+    //或者在 script标签中声明立即下载，但是延迟解析(只适用于外部js脚本文件加载过程)
+    <!-- <script type="text/javascript" defer="defer" src="xxxx"></script> -->
+    <!-- <script>
+        function sayHi() {
+            window.alert("hello world");
+        }
+    </script> -->
+</header>
+
+<body>
+    <div>
+        <input type="button" onclick="sayHi()" value="sayHi">
+    </div>
+    <script>
+        function sayHi() {
+            window.alert("hello world");
+        }
+    </script>
+</body>
+
+</html>
