@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <script>
+        //创建对象实例的方法一：
+        var obj = new Object();
+        obj.name = 'liuyu';
+        obj.height = 187;
+
+        //创建对象实例的方法二：对象字面量表示法
+        var person = {
+            name: 'liuyu',
+            height: 187
+        }
+
+        //创建对象实例的方法三：
+        var person = {};
+        person.name = 'liuyu';
+        person.height = 187;
+        console.log("create object done");
+        //访问对象属性的方法：
+        console.log(`name:${person.name}--height:${person['height']}`);
+
+        //js中Array,可以包含不同类型元素，且长度不固定，会自动增长
+        var array1 = new Array();
+        var array2 = new Array(10);//创建初始长度为10的array;
+        var array3 = new Array(10, 20, 30);//创建初始值为10，20，30的数组；
+        array3[3] = 40;
+        for (var i = 0; i < array3.length; i++) {
+            console.log(`item${i} : ${array3[i]}`);
+        }
+        //添加索引值，则会创建索引值+1个数组元素，要小心
+        array3[1000] = 10000;//length = 1001
+
+        array3.length = 4;//length = 4;
+        //array.join(),打印所有元素时中间分隔符样式；
+        console.log(`Is array3 is Array? ${Array.isArray(array3)},array3 length:${array3.length}, content:${array3.join('||')}`);
+        //创建array的另一种方法：类似于java中的数组创建
+        var array4 = [1, 2, 3, 4];
+        var len = array4.length;
+        for (var i = 0; i < 4; i++) {
+            var temp = array4.shift();//取出first元素，并前移array
+            array4.push(temp + i);//压栈元素
+        }
+        for (var i = 1; i < 5; i++) {
+            var lentemp = array4.unshift(i);
+            array4.pop();
+        }
+        function compare(value1, value2) {
+            if (value1 >= value2)
+                return -1
+            else 
+                return 1;
+        }
+        array4.sort(compare);//没有（），类似于c++中的函数指针传递
+
+        //array.slice：剪切方法；array.splice：拼接方法
+        // while (len-- > 0) {
+        //     console.log(`pop item:${array4.pop()}`);
+        // }
+
+        //迭代方法
+        //every:对数组每一个元素都执行给定函数，每一项都返回true，则返回true；数组没有元素也会返回true。。。
+        var everyAboveTwo = array4.every(function(item, index, array){
+            return (item > 2);
+        });
+        console.log("array4 all item > 2 : "+everyAboveTwo);
+
+        //some:对数组每一个元素都执行给定函数，有任一项返回true，则返回true；数组没有元素也会返回true。。。
+        var someAboveTwo = array4.some(function(item, index, array){
+            return (item > 2);
+        });
+        console.log("array4 some item > 2 : "+someAboveTwo);
+
+        //filter:对数组每一个元素都执行给定函数，返回让函数等于true的元素组成的新数组；
+        var newAboveTow = array4.filter(function(item, index, array){
+            return (item > 2);
+        });
+        console.log("array4 all items > 2 : "+newAboveTow);
+
+        //forEach:对数组每一个元素都执行给定函数, 没有返回值
+        var forEachItem = array4.forEach(function(item, index, array){
+            console.log("iterator item:"+item);
+        });
+        console.log("array4 forEach : "+forEachItem);
+
+        //map:对数组每一个元素都执行给定函数, 返回值组成新数组
+        var newArray = array4.map(function(item, index, array){
+            return item + 10;
+        });
+        console.log("newarray base array4 : "+newArray);
+
+        //reduce, reduceRight:归并方法，从第二项开始，遍历数组所有元素，并返回最终结果；
+        var sum = array4.reduce(function(pre, cur, index, array){
+            return pre + cur;
+        });
+        console.log("array4 sum: "+sum);
+
+    </script>
+</header>
+
+<body>
+
+</body>
+
+</html>
