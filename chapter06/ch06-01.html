@@ -100,6 +100,31 @@
             function hasPropertyInProtoType(obj, name){
                 return !obj.hasOwnProperty(name) && (name in obj);
             }
+
+            //使用对象字面量重写原型对象，则没有了默认存在constructor属性指向构造函数，prototype此时相当于一个新函数，他的constructor此时也就是Object构造函数，
+            PersonPro.prototype ={
+                //constructor: PersonPro, 如果constructor很重要，可以指定
+                name: "liuyu",
+                age: 30,
+                sayName : function(){
+                    console.log("hello");
+                }
+            }
+
+            //因为原型模式会共享数据，所以在数据不能共享的实例创建中，需要构造函数和原型模式相结合
+            function PersonP(name, age){
+                this.name = name;
+                this.age = age;
+                this.friends = ['A','B'];
+            }
+
+            PersonP.prototype = {
+                constructor:PersonP,
+                sayName: function(){
+                    console.log("name:"+this.name);
+                }
+            }
+
         </script>
     </header>
 </html>
