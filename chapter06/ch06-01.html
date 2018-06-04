@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <script>
+            function createPerson(name, age){
+                var o = new Object();
+                o.name = name;
+                o.age = age;
+                o.sayName = function(){
+                    console.log("name:"+this.name);
+                }
+                return o;
+            }
+
+            var person = createPerson('liu', 30);
+            person.sayName();
+
+            function Person(name, age){
+                this.name = name;
+                this.age = age;
+                this.sayName = function(){
+                    console.log("name:"+this.name);
+                }
+            }
+
+            var person1 = new Person("liu", 30);
+            person1.sayName();
+
+            function PersonPro(){
+
+            }
+
+            PersonPro.prototype.name='liu';
+            PersonPro.prototype.age = 30;
+            PersonPro.prototype.sayName = function(){
+                console.log("name:"+this.name);
+            }
+
+            var person2 = new PersonPro();
+            person2.name = 'yu';
+            delete person2.name;
+            person2.sayName();
+            var person3 = new PersonPro();
+            person3.sayName();
+            console.log(`person2.sayName == person3.sayName::${person2.sayName == person3.sayName}`);
+            console.log(`PersonPro.prototype.isPrototypeOf(person2):${PersonPro.prototype.isPrototypeOf(person2)}`);
+        </script>
+    </header>
+</html>
