@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <script>
+        function factorial(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                return num * factorial(num - 1);
+            }
+        }
+
+        var sum = factorial(10);
+        console.log("sum:" + sum);
+
+        //因为factorial函数递归调用的函数写死，所以当使用引用代替factorial时，就会因为找不到factorial方法而报错；
+        // var tem = factorial;
+        // factorial = null;
+        // var sum1 = tem(10);
+        // console.log("sum1:"+sum1);
+        function fact(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                //arguments.callee执行正在执行的函数的指针，严格模式下不能调用
+                return num * arguments.callee(num - 1);
+            }
+        }
+        var tem = fact;
+        fact = null;
+        var sum1 = tem(10);
+        console.log("sum1:" + sum1);
+
+        //该种方式代替arguments.callee，不论fact1如何赋值，f始终有效；
+        var fact1 = (function f(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                return num * f(num - 1);
+            }
+        });
+    </script>
+</header>
+
+</html>
