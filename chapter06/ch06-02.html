@@ -14,6 +14,9 @@
          }
 
          SubType.prototype = new SuperType();
+         //给原型添加方法，一定要在替换原型的语句之后
+         //通过原型链方式实现继承，一定不能使用对象字面量的方式创建原型方法！！！
+         //原型链中，父类的属性为所有子类所共享，并不想java中，每次创建一个子类，父类除了static字段外，都是独立的副本
          SubType.prototype.getSubValue = function(){
              return this.subproperty;
          }
