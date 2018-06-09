@@ -12,6 +12,9 @@
             //继承了SuperType
             SuperType.call(this);
         }
+
+        // var ff = SuperType();
+        // console.log("FF:"+ff.superType);//非对象，不能访问其变量
         var instance1 = new SubType();
         instance1.colors.push(5);
         var instance2 = new SubType();

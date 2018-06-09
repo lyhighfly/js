@@ -39,6 +39,119 @@
                 return num * f(num - 1);
             }
         });
+
+
+        //什么是闭包：有权访问另一个函数作用域中变量的函数；
+        function fun(arg) {
+            return function (arg) {//此处定义的参数，会屏蔽上层函数参数
+                return arg;
+            }
+        }
+
+        var f = fun(10);
+        console.log("fun :" + f(100));
+
+        //在闭包中使用this，要特别注意，因为this对象实在运行时基于函数执行环境绑定的；
+        //在全局函数中，this是指window，当函数作为某个对象的方法调用时，this就是指的这个对象；
+
+        var name = "The Window";
+        var object = {
+            name: "My Object",
+            getName: function () {
+                var name = "The Function";
+                return function () {
+                    // return name;//The Function;
+                    return this.name;
+                }
+            }
+        }
+
+        var getName = object.getName();
+        console.log("name:" + getName());
+        console.log("name1:" + object.getName()());
+
+        var object1 = {
+            name: "My Object1",
+            getName: function () {
+                var that = this;//把外部作用域this保存在闭包能够访问到的变量里，这样就可以通过闭包拿到外部作用域的变量了；
+                return function () {
+                    return that.name;
+                }
+            }
+        }
+        console.log("name2 : " + object1.getName()());
+        //要注意闭包造成的内存泄漏；
+
+        //因为js中没有块作用域的概念，因此块语句中的变量，实在包含的函数中而非语句中创建的；
+        for (var i = 1; i < 10; i++) {
+
+        }
+        console.log("i value : " + i);
+        //因此在之后重新定义i，不会造成i被重新创建，而会执行其赋予的值；
+        var i = 11;
+        console.log("i value : " + i);
+
+        //可以通过匿名函数的方式，模仿块级作用域
+        (function () {
+            for (var j = 1; j < 10; j++) {
+
+            }
+        })();
+        // console.log("j value :"+j); //j is not defined
+
+        //因为js中的对象都是公有的，所以js中没有私有成员；但是对于函数中的变量来说，可以认为是私有变量，因为不能在外部访问其变量；
+        
+        function MyObject() {
+            var privateValue = 10;
+            function privateFun() {
+                return false;
+            }
+
+            this.publicFun = function () {
+                privateValue++;
+                return privateFun;
+            }
+        }
+
+        var MyObject = new MyObject();//即使是构造函数，也不能访问内部变量
+        console.log("private value:"+MyObject.privateValue);
+        var privateValue = MyObject.publicFun();
+        console.log("private value :"+privateValue());
+
+        (function(){
+            var name = "";
+            Person = function(value){
+                name = value;
+            }
+
+            Person.prototype.getName = function(){
+                return name;
+            }
+            Person.prototype.setName = function(value){
+                name = value;
+            }
+        })();
+        var person1 = new Person("liu");
+        person1.setName("yu1");
+        var person2 = new Person("yu");
+        console.log("p1:name:"+person1.getName() + "    p2 name:"+person2.getName()+ "   "+window.name);
+
+
+        //模块模式：通过为单例添加私有变量，特权方法使其得到增强
+        var singleton = function(){
+            var privateValue = "1111";
+            function privateFun(){
+                return false;
+            }
+            return {
+                publicKey : true,
+                publicFun : function(){
+                    return privateFun();
+                }
+            }
+        }();
+        var r = singleton.publicFun;
+        console.log(r());
     </script>
 </header>
 
