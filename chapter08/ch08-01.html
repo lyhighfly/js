@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        var age = 20;
+        function sayAge() {
+            console.log(" age: " + age);
+        }
+        sayAge();
+        window.sayAge();
+        //全局定义的变量，和函数，默认归为window对象名下；
+        console.log(" window age:" + window.age);
+        window.color = "red";
+
+        //直接定义，默认归属window的全局变量，无法delete；直接定义的window变量可以delete
+        delete age;
+        delete window.age;
+        delete window.color;
+        console.log(" age: " + age);
+        console.log(" window age:" + window.age);
+        console.log(" window color:" + window.color);
+
+        console.log(`window.leftPos:${window.screenLeft}, window.topPos:${window.screenTop}`);
+        console.log(`window.width:${window.innerWidth}, window.height:${window.innerHeight}`);
+        console.log("open baidu");
+        var topframe = window.frames["topframe"];
+        console.log("topframe:"+topframe);
+        // var win = window.open("http://www.baidu.com", "topframe");
+        var t = setTimeout(function () {
+            console.log("window close");
+        }, 3000);
+        clearTimeout(t);
+        var i = 10;
+        var interval = setInterval(function(){
+            console.log("i:"+i);
+            if(i-- == 0){
+                clearInterval(interval);
+                console.log("clear interval");
+            }
+        }, 2000);
+
+        //location就是现实当前浏览器访问的地址信息，host:port?query等等
+        var path = location.pathname;
+        console.log("path:"+path);
+        // location.assign("http://www.baidu.com");//和window.open一个效果，就是location只在当前页面打开
+        // setTimeout(function(){
+        //     // location.reload(true);
+        //     console.log("go to google");
+        //     location.replace("http://www.google.com");
+        // }, 5000);
+
+        //navigator:用于获得客户端浏览器的基本信息：名称，版本号，语言，UA, 插件信息等
+        console.log("Browser:"+navigator.appName+"   platform:"+navigator.platform+"  UA:"+navigator.userAgent);
+
+        //history:处于安全考虑，无法得知用户访问的URL，但是可以通过history.go(num)，来达到前进后退的目的；
+    </script>
+</head>
+
+</html>
