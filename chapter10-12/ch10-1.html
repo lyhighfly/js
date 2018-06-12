@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <title>12345</title>
+    <script>
+        //文档节点是每个文档的根节点，(一个页面中可以有多个文档节点)文档节点的子节点称为文档元素，文档元素是文档的最外层元素，
+        //文档中的其他元素都包含在文档元素中，每个文档只能有一个文档元素；
+
+        //js中，Document表示文档，浏览器中，document对象是HTMLDocument实例，document是window对象的一个属性，因此可以当做全局对象来访问；
+        var html = document.documentElement;
+        console.log(html === document.childNodes[0]);
+        console.log(html === document.firstChild);
+        var body = document.body;
+        var p = body.firstChild;
+        console.log("p name:" + p.nodeName);
+
+        var pp = document.getElementById("hhh");
+        var hh = document.getElementById("head");
+        //头和尾js相同元素获取结果不同，证明js执行时机与放置位置有关
+        console.log("pp:" + pp.nodeName + "  hh:" + hh.nodeName);
+
+        var doctype = document.doctype;
+        console.log(" html type:" + doctype.nodeName);//返回<!DOCTYPE html>声明
+
+        //HTMLDocument实例所特有的一些属性
+        console.log("html title:" + document.title);
+        document.title = "54321";
+        console.log("html URL:" + document.URL);
+        console.log("html domain:" + document.domain);
+        console.log("html referrer:" + document.referrer);
+        //domain的值是可以设置的，但是只能是由宽松的变为紧绷的，
+        //p2p.wrox.com -> wrox.com，反之则因为安全限制，无法成功；又因为跨域安全问题，来自不同子域的页面无法通过JS通信；
+    </script>
+</header>
+
+<body>
+    <p id="hhh">this is page title</p>
+    <h1 id="head">this is page Head</h1>
+    <h1 id="head">this is page Head</h1>
+
+    <div id="myDiv" class="bd" title="Body Text" lang="en" dir="ltr" data-my-special-value="hell0"></div>
+    <script>
+        var div = document.getElementById("myDiv");
+        var value = div.getAttribute('data-my-special-value');//特性名称，不区分大小写，自定义属性，应该以data-开头
+        div.setAttribute('data-my-special-value-2', 'world');//如果特性不存在，则创建， 特性key会被统一转成小写
+        console.log(`id:${div.id}, className:${div.className}, title:${div.title}, lang:${div.lang}, dir:${div.dir}`);
+        console.log(" value:"+value + div.getAttribute('data-my-special-value-2'));
+        div.removeAttribute('data-my-special-value-2');//清楚元素中关于该特性的描述
+        // setTimeout(function () {
+        //     document.write("<string>" + (new Date()).toString() + "</strong>");
+        // }, 2000);
+        
+        //每个element的所有属性都包含在一个NamedNodeMap中，
+        //遍历元素属性，进行序列化时有用
+        console.log("div id:"+div.attributes.getNamedItem('id').nodeValue);
+        console.log("div title:"+div.attributes['title'].nodeValue);
+    </script>
+</body>
+<script>
+    var ppp = document.getElementById("hhh");
+    //如果页面中含有多个相同ID的元素，则只返回第一次出现的元素
+    var hhh = document.getElementById("head");
+    //头和尾js相同元素获取结果不同，证明js执行时机与放置位置有关
+    console.log("ppa:" + ppp.nodeName + "  hhh:" + hhh.nodeName);
+
+    var allList = document.getElementsByTagName('*');
+    for (var i = 0; i < allList.length; i++) {
+        //在html中，标签名始终保持大写，而在xml中，标签名与源文件中的保持一致
+        console.log("child name:" + allList[i].nodeName);
+    }
+    var h1List = document.getElementsByTagName('h1');
+    console.log("h1 size:" + h1List.length + " all size:" + allList.length);
+</script>
+
+</html>
