@@ -54,6 +54,21 @@
         //遍历元素属性，进行序列化时有用
         console.log("div id:"+div.attributes.getNamedItem('id').nodeValue);
         console.log("div title:"+div.attributes['title'].nodeValue);
+        
+        //创建文本节点，然后加入到元素中
+        var txtNode = document.createTextNode("this div element");
+        div.appendChild(txtNode);
+
+        //创建一个临时节点，此时还没有添加到父节点中
+        var h2 = document.createElement('h2');
+        h2.id='h22';
+        h2.textContent='123456789';
+        //此时添加到父节点中
+        document.body.appendChild(h2);
+
+        //注释Comment也是节点类型，可以通过document.createComment()来添加注释节点
+
+        //Attr类型节点，直接使用get/setAttribute等，很少直接引用特性节点，可以document.createAttribute(), element.setAttributeNode()来动态设置特性节点
     </script>
 </body>
 <script>
@@ -62,6 +77,12 @@
     var hhh = document.getElementById("head");
     //头和尾js相同元素获取结果不同，证明js执行时机与放置位置有关
     console.log("ppa:" + ppp.nodeName + "  hhh:" + hhh.nodeName);
+
+    //文本节点必须存在内容，没有内容的html节点，不存在文本节点，且每个包含内容的元素，最多只能有一个文本节点
+    var content = hhh.firstChild;
+    console.log("head content:"+content.nodeValue);
+    //往DOM文档中插入文本之前，需要进行html编码
+    content.nodeValue = "hahahahhaha";
 
     var allList = document.getElementsByTagName('*');
     for (var i = 0; i < allList.length; i++) {
