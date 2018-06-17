@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="../js/EventUtil.js"></script>
+</head>
+
+<body>
+    <form method="post" id="form">
+        <input type="text" name="tel1" id="txtTel1" maxlength="13">
+        <input type="text" name="tel2" id="txtTel2" maxlength="13">
+        <input type="text" name="tel3" id="txtTel3" maxlength="13">
+        <script>
+            (function () {
+                var form = document.forms[0];
+                function handler(event) {
+                    event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    if(target.value.length == target.maxLength){
+                        var form = target.form;
+                        for(var i=0, len=form.elements.length;i<len;i++){
+                            if(form.elements[i] == target){
+                                if(form.elements[i+1]){
+                                    form.elements[i+1].focus();
+                                }
+                            }
+                        }
+                    }
+                };
+                var txt1 = document.getElementById('txtTel1');
+                var txt2 = document.getElementById('txtTel2');
+                var txt3 = document.getElementById('txtTel3');
+                EventUtil.addHandler(txt1, 'keyup', handler);
+                EventUtil.addHandler(txt2, 'keyup', handler);
+                EventUtil.addHandler(txt3, 'keyup', handler);
+            })();
+        </script>
+    </form>
+</body>
+
+</html>

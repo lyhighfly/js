@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    //注意此处script的写法，结尾必须是"
+    <\/script>"
+        <script type="text/javascript" src="../js/EventUtil.js"></script>
+</head>
+
+<body>
+    <p>Hello World</p>
+    <form method="post" action="javascript:alert('Form Submmit')">
+        <div id="divSimple">
+            <input id="bold" type="button" value="Bold">
+            <input id="italic" type="button" value="Italic">
+            <input id="underline" type="button" value="UnderLine">
+            <input id="indent" type="button" value="Indent">
+            <input id="outdent" type="button" value="Outdent">
+        </div>
+        <input type="text" id="inputtext" autofocus>
+        <input type="reset" value="Reset All">
+        <input type="submit" value="Submit From">
+        <script>
+            //document.forms返回所有的表单，form.element表示当前表单中的所有表单元素
+            var form = document.forms[0];
+            for (var i = 0; i < form.elements.length; i++) {
+                console.log("form element:" + form.elements[i].nodeName);
+            }
+            EventUtil.addHandler(form, 'click', function (event) {
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+                switch (target.id) {
+                    case "bold":
+                        console.log("click input: bold");
+                        break;
+                    case "italic":
+                        console.log("click input: italic");
+                        break;
+                    case "underline":
+                        console.log("click input: underline");
+                        break;
+                }
+            });
+            //input 有一个autofocus属性，就简单很多了
+            EventUtil.addHandler(window, 'load', function(event){
+               var input =  form.elements['inputtext'];
+               if(input.autofocus !== true){
+                   input.focus();
+               }
+            })
+
+            //所有表单字段都支持三种状态的变化：blur，focus，change
+            var input = form.elements['inputtext'];
+            EventUtil.addHandler(input, 'focus', function(event){
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+                if(target.style.backgroundColor != 'red'){
+                    target.style.backgroundColor = 'yellow';
+                }
+            });
+            EventUtil.addHandler(input, 'blur', function(event){
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+                if(/[^\d]/.test(target.value)){
+                    target.style.backgroundColor = 'red';
+                }else{
+                    target.style.backgroundColor = 'blue';
+                }
+            });
+            EventUtil.addHandler(input, 'change', function(event){
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+                if(/[^\d]/.test(target.value)){
+                    target.style.backgroundColor = 'red';
+                }else{
+                    target.style.backgroundColor = 'green';
+                }
+            })
+        </script>
+    </form>
+    <form method="post" name="form2">
+        <ul>
+            <li>
+                <input type="radio" name="color" value="red">Red</li>
+            <li>
+                <input type="radio" name="color" value="green">Green</li>
+            <li>
+                <input type="radio" name="color" value="blue">Blue</li>
+        </ul>
+        <input id="input" style="backgroundColor:yellow" type="text" size="25" maxlength="50" value="input text可以指定最长字符数">
+        <textarea style="backgroundColor:blue" rows="5" cols="25">textarea 可以指定行列数，但是不能限制字符数；两者的输入内容都存储在value中</textarea>
+        <input type="submit" id="sumbit" value="submit color">
+    </form>
+    <script>
+        //id / name = form2 都可以使用
+        var form2 = document.forms["form2"];
+        var colors = form2.elements['color'];
+        console.log("colors size:" + colors.length);
+        //表单的共有字段属性：disabled，form，name，readOnly，tabIndex，type，value
+        //除了form(表示当前表单元素属于哪个表单)外，其他属性都是可以动态更改的
+        console.log(`frist color:${colors[0].value}, second color:${colors[1].type}, third color:${colors[2].name}`);
+        colors[1].value="black";
+        colors[2].type="checkbox";
+        //不能在onclick中更改的原因是，由于浏览器的不同，click和submit的执行顺序不能确定
+        EventUtil.addHandler(form2, 'submit', function(event){
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            var btn = target.elements['submit'];
+            btn.disabled = true;
+            console.log("Disable submit btn");
+            EventUtil.preventDefault(event);
+        })
+
+        var inputText = form2.elements['input'];
+        console.log("form2 input:"+inputText.value);
+        EventUtil.addHandler(inputText, 'focus', function(event){
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            //方便用户选择，全部文本选中状态
+            // target.select();
+            //选择部分文本
+            target.setSelectionRange(6, 10);
+        });
+        EventUtil.addHandler(inputText, 'select', function(event){
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            console.log("Select Text:"+ inputText.value.substring(inputText.selectionStart, inputText.selectionEnd));
+        });
+        EventUtil.addHandler(inputText, 'keypress', function(event){
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            var charcode = EventUtil.getCharCode(event);
+            if(!/\d/.test(String.fromCharCode(charcode))){
+                EventUtil.preventDefault(event);
+            }
+        });
+        //一个页面只能有一个焦点，text得到了，radio就不能再声明需要focus了，如果元素是隐藏的，声明获得焦点就会报错
+        // EventUtil.addHandler(window, 'load', function(event){
+        //     form2.elements['color'][0].focus();
+        // })
+    </script>
+</body>
+
+</html>
