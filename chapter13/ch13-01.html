@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <script>
+        function onclickme() {
+            //创建了一个封装元素属性的函数，局部变量,事件对象event，不用通过函数参数读取，它包含了事件元素，事件类型，以及一些其他的与特定事件相关的信息。函数内部直接使用
+            alert('OnClick me ：' + event.type + "  " + this.value);
+
+        }
+        function onclickdiv() {
+            //this为currentTarget，表示当前处理事件的那个元素
+            console.log("div click:" + event.currentTarget + this.value + "  eventTarget:" + event.target);
+        }
+
+        //隔离浏览器间差异的事件添加方式,注意优先级的处理顺序
+        var EventUtil = {
+            addHandler: function (element, type, handler) {
+                if (element.addEventListener) { //DOM2
+                    element.addEventListener(type, handler, false);
+                } else if (element.attachEvent) { //IE8
+                    element.attachEvent("on" + type, handler);
+                } else { //DOM0
+                    element["on" + type] = handler;
+                }
+            },
+            removeHandler: function (element, type, handler) {
+                if (element.removeEventListener) {
+                    element.removeEventListener(type, handler, false);
+                } else if (element.detachEvent) {
+                    element.detachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = handler;
+                }
+            },
+            getEvent: function (event) {//event是假设参数，兼容DOM中，event只是简单的传入传出，IE中，event未定义，则使用window中的变量
+                return event ? event : window.event;
+            },
+            getTarget: function (event) {
+                return event.target || event.srcElement;
+            },
+            preventDefault: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            },
+            stopPropagation: function (event) {
+                if (event.stopPropagation) {
+                    event.stopPropagation();
+                } else {
+                    event.cancelBubble = true;
+                }
+            }
+        }
+    </script>
+</header>
+
+<body>
+    <p>hello world</p>
+    <div onclick="onclickdiv()">
+        //可以通过在元素中指定事件发生的js代码
+        <input id='btn1' type="button" value="Click Me" onclick="alert('OnClick Me')" />
+        <br/>
+        <br/>
+        <p>//也可以指定所要执行js函数名</p>
+        <input id='btn2' type="button" value="Click Me 2" />
+        <br/>
+        <br/>
+        <p>//元素中直接定义js的，可以访问this，指向目标元素，而注册函数的方式无法使用this</p>
+        <input type="button" value="Click Me 3" onclick="alert(this.value)" />
+        <input type="button" value="Click Me 4" onclick="alert(value)" />
+
+        <p>//如果是表单元素，其作用域还包括表单元素的入口，因此可以在button中访问到username</p>
+        <form method="POST">
+            <input type="text" name="username" value="user_name">
+            <input type="button" value="echo name" onclick="alert(username.value)">
+        </form>
+
+        <p>//因为js解析的顺序是按照从上到下的顺序，因此，可能在html元素中注册的事件，在点击触发时，还么有准备好，所以在html元素中直接定义事件，不是一个好的选择</p>
+        <p>//这个问题可以通过添加try-catch解决</p>
+        <input type="button" value="Click Me 5" onclick="try{alert(username.value)}catch(ex){}">
+
+        <p>//还有就是这样html和js耦合的太严重，不利于修改</p>
+        <p>//处理程序的作用域链在不同的浏览器中可能会导致不同的结果</p>
+
+        <p>//动态添加onclick属性</p>
+        <input id="btn" type="button" value="Click Me 5">
+        <div id="mydiv">
+            <p>mouse in / out</p>
+            <img id="myimg" width="100%" height="100%" src="http://img1.touxiang.cn/uploads/20130330/30-074612_461.jpg" alt="">
+            <input id="myinput" type="text" width="100%" height="100%"/>
+        </div>
+    </div>
+    <div id="myDivv">
+        Right Click Or Ctrl+click me to get a custom context menu, Click anywhere else to get the default context menu
+    </div>
+    <url id="myMenu" style="position:absolute;visibility:hidden;baockground-color:silver">
+        <li><a href="http:www.baidu.com">Baidu</a></li>
+        <li><a href="http:www.google.com">Google</a></li>
+    </url>
+    <script>
+        EventUtil.addHandler(window, "load", function(){
+            console.log("window load finish");
+            var div = document.getElementById('myDivv');
+            EventUtil.addHandler(div, "contextmenu", function(event){
+                event = EventUtil.getEvent(event);
+                EventUtil.preventDefault(event);
+                var menu = docuemnt.getElementById('myMenu');
+                menu.style.left=event.clientX+"px";
+                menu.style.top=event.clientY+"px";
+                menu.style.visibility="visible";
+            })
+            EventUtil.addHandler(document, "click", function(event){
+                document.getElementById('myMenu').style.visibility="hidden";
+            });
+            console.log("window load finish111");
+        })
+        // EventUtil.addHandler(window, "beforeunload", function(event){
+        //     console.log("window onbeforeUnload");
+        //     event = EventUtil.getEvent(event);
+        //     var message = "I`m really going to miss you if you go.";
+        //     event.returnValue = message;
+        //     return message;
+        // })
+        //UI事件
+        var img = document.getElementById('myimg');
+        img.onload = function () {
+            console.log("image load finish：" + event.target.src);
+        }
+        //貌似error不起作用
+        img.error = function () {
+            console.log("image load error");
+        }
+        //resize事件只有window对象上触发
+        img.onresize = function () {
+            console.log("image resize");
+        }
+        window.addEventListener("resize", function () {
+            console.log("window resize");
+        }, false);
+
+        EventUtil.addHandler(window, "scroll", function () {
+            console.log("window scroll:" + event.type);
+        });
+
+        //焦点事件：在页面元素获得或者失去焦点时触发，略
+
+        //鼠标和滚轮事件
+        var mydiv = document.getElementById('mydiv');
+        var handler = function (event) {
+            switch (event.type) {
+                case 'click':
+                //鼠标事件坐标都是保存在event对象的clientX,clientY中，注意，这些值不包括页面滚动的距离，因此这些位置并不表示鼠标在在页面中的位置
+                    console.log("mousedown :" + event.clientX + "  " + event.clientY);
+                //鼠标在页面的坐标信息：pageX，pageY来算出鼠标在页面中的位置
+                    console.log("X:Y    "+(event.pageX)+"  :  "+(event.pageY));  
+                      //鼠标在屏幕的坐标信息：screenX，screenY来算出鼠标在页面中的位置
+                      console.log("X:Y    "+(event.screenX)+"  :  "+(event.screenY)); 
+                    break;
+                case 'mouseover':
+                    event.target.style.backgroundColor = "red";
+                    break;
+                case 'mouseout':
+                    event.target.style.backgroundColor = "";
+                    break;
+                case 'mousedown':
+                    console.log("mousedown :" + event.clientX + "  " + event.clientY);
+                    break;
+                case 'mouseup':
+                    console.log("mouseup :" + event.clientX + "  " + event.clientY);
+                    break;
+                case 'mousewheel':
+                    console.log("mousewheel :" + event.clientX + "  " + event.clientY);
+                    break;
+            }
+        }
+        mydiv.onclick = handler;
+        mydiv.onmouseover = handler;
+        mydiv.onmouseout = handler;
+
+
+        //键盘和文本事件
+        //对于文本字符：keydown, keypress, keyup，不松手，持续 down press
+        //对于非文本字符：keydown， keyup，不松手，持续down
+        var textinput = document.getElementById("myinput");
+        EventUtil.addHandler(textinput, "keydown", function(){
+            console.log("textinput keydown:"+event.keyCode);
+        });
+        EventUtil.addHandler(textinput, "keypress", function(){
+            //此事件发生，就代表有文本输入，会多一个charcode属性，表示文本的ascii编码
+            console.log("textinput keypress:"+event.keyCode + " char:"+String.fromCharCode(event.charCode));
+        });
+        EventUtil.addHandler(textinput, "keyup", function(){
+            console.log("textinput keyup"+event.keyCode);
+        });
+        //只有输入实际字符时，才会触发
+        EventUtil.addHandler(textinput, "textInput", function(){
+            console.log("textinput input:"+event.data);
+        });
+
+        //变动事件，当DOM中有任何变动发生时触发，类似于android中给view tree添加全局监听去，当view有删减时通知
+        //略
+
+
+
+        //这句必须放在html对应的元素加载之后，不然就是空指针了
+        //这种方式添加的事件，会在事件流的冒泡阶段被处理
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            //此处this，等价于btn直接调用
+            alert('OnClick Me:' + this.getAttribute('value') + "  detail:" + event.currentTarget);
+            //默认，此处处理完，冒泡会被父元素div继续处理，此处使用stopPropagation，禁止事件继续传播
+            event.stopPropagation();
+        }
+
+        //亦可以通过这种方式，取消添加到元素上的onclick属性
+        var btn1 = document.getElementById('btn1');
+        btn1.onclick = null;
+
+        var supportDOM2Core = document.implementation.hasFeature('Core', '2.0');
+        console.log("support DOM2 Core:" + supportDOM2Core);
+        //DOM2级事件的处理方式， 可以多次调用addEventListener，按照add顺序调用
+        var btn2 = document.getElementById('btn2');
+        console.log("btn2 value:" + btn2.getAttribute('value'));
+        //注意此时的事件名称没有on前缀了，不同于btn1的绑定方式
+        btn2.addEventListener("click", function () {
+            alert('btn2 onclick:');
+        }, false);
+        //removeEventListener需要相同的事件名和函数，因此上面这样添加的匿名函数，是无法通过removeEventListener删除的
+        btn2.removeEventListener("click", function () {
+            alert('btn2 onclick:');
+        }, false);// NOT WORK!!!
+
+
+        //currentTarget(当前处理事件的对象) 和 Target(事件的真正目标)的不同，this始终指向currentTarget
+        document.body.onclick = function (event) {
+            console.log(event.currentTarget == document.body);
+            console.log(this === document.body);
+            console.log(event.target === document.getElementById('btn'));
+        }
+
+
+    </script>
+</body>
+
+</html>

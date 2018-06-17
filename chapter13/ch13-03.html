@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <script type="text/javascript" src="../js/EventUtil.js"></script>
+</header>
+
+<body>
+    <input id="myButton" type="button" width="100px" height="100px" backgroundcolor="red" value="Click ME">
+    <input id="myText" type="text">
+    <script>
+        //在js中，完全可以模拟用户的事件，而且模拟出的时间，也符合事件传递的逻辑：捕获阶段，冒泡阶段等
+        var btn = document.getElementById("myButton");
+        var text = document.getElementById("myText");
+
+        EventUtil.addHandler(btn, 'click', function(event){
+            event = EventUtil.getEvent(event);
+            console.log("click:"+event.clientX+"  "+event.clientY+"  "+event.screenX+"  "+event.screenY);
+            
+            //DOM Level 3 implementation
+            // if (document.implementation.hasFeature("KeyboardEvent", "3.0")){
+            //     event = document.createEvent("KeyboardEvent");
+            //     event.initKeyboardEvent("keydown", true, true, document.defaultView, "a", 0, "Shift", 0);            
+            // } else {
+            //     try {
+            //         //Firefox implementation
+            //         event = document.createEvent("KeyEvents");
+            //         event.initKeyEvent("keydown", true, true, document.defaultView, false, false, 
+            //                             true, false, 65, 65);    
+            //     } catch (ex){ //others
+                    event = document.createEvent("Events");
+                    event.initEvent("keydown", true, true);
+                    event.view = document.defaultView;
+                    event.altKey = false;
+                    event.ctrlKey = false;
+                    event.shiftKey = false;
+                    event.metaKey = false;
+                    event.keyCode = 65;
+                    event.charCode = 65;            
+            //     }               
+                
+                
+            // }
+            //fire the event
+            text.dispatchEvent(event);
+        })
+        var newEvent = document.createEvent("MouseEvents");
+        newEvent.initMouseEvent('click', true, true,document.defaultView,0,0,0, 40, 30, false, false, false, false, 0, null);
+        setTimeout(function(){
+            console.log("dispatch Event");
+            btn.dispatchEvent(newEvent);
+        }, 2000);
+       
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BeforeUnload Event Example</title>
+    <script type="text/javascript" src="../js/EventUtil.js"></script>
+</head>
+
+<body>
+    <div id="myDiv">Try to navigate away from this page.</div>
+    <a href="http:www.baidu.com">Baidu</a>
+    <div id="myDivv"></div>
+    <script type="text/javascript">
+        EventUtil.addHandler(window, "beforeunload", function (event) {
+            console.log("window leave this page")
+            event = EventUtil.getEvent(event);
+            var message = "I'm really going to miss you if you go.";
+            event.returnValue = message;
+            return message;
+        });
+        //设备方向的变化
+        EventUtil.addHandler(window, "orientationchange", function (event) {
+            var divv = document.getElementById('myDivv');
+            divv.innerHTML = "Current Oritation :" + window.orientation;
+        });
+        //另外还有针对移动设备的各种事件监听，略
+
+        //因为添加到页面的事件处理程序数量将直接关系到页面的整体运行性能，因此，多余事件处理程序过多的问题，解决方案就是事件委托
+
+    </script>
+    //事件委托的本质就是依赖事件冒泡，在冒泡的父类中，判断event所发生的真正对象，依次进行不同的行为分支，也可以在document上添加这样的事件委托
+    //所有点击事件，最终都交由一个函数做处理，因此占用内存也就减少了
+    <ul id="myLinks">
+        <li id="gosomewhere">Go SomeWhere</li>
+        <li id="dosomething">Do SomeThing</li>
+        <li id="sayhi">Say Hi</li>
+        <script>
+            (function () {
+                var list = document.getElementById("myLinks");
+                EventUtil.addHandler(list, "click", function (event) {
+                    event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    switch (target.id) {
+                        case "gosomewhere":
+                            console.log("Go SomeWhere");
+                            break;
+                        case "dosomething":
+                            console.log("Do SomeThing");
+                            break;
+                        case "sayhi":
+                            console.log("SayHi");
+                            break;
+                    }
+                })
+            })();
+        </script>
+    </ul>
+    //每当将事件处理程序指定给元素时，运行中的浏览器代码与支持的页面交互的js代码就建立了一个连接，这种连接越多，页面执行的速度就越慢，因此，在不需要的连接时，需要手动的清理这种连接。
+</body>
+
+</html>
