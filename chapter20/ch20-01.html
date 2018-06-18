@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JSON Example</title>
+</head>
+
+<body>
+    <script>
+        var book = {
+            "title": "Professional JavaScript",
+            "authors": ["Nicholas"],
+            edition: 3,
+            year: 2011,
+            release: new Date(2011, 1, 11)
+            //可以在对象中添加toJSON方法，用于被stringify调用，返回定制的json
+        }
+        //JSON.stringify() json序列化，第三个参数标示缩进多少空格，也可以使用字符，空格会被字符取代
+        var jsontext = JSON.stringify(book, null, 4);
+        console.log("book string:" + jsontext);
+
+        //JSON.stringify()接受一个过滤器，只有过滤中声明的key，才会被序列化保存下来
+        var jsontextSub = JSON.stringify(book, ["title", "year"]);
+        console.log("book sub string:" + jsontextSub);
+
+        var jsontextReplace = JSON.stringify(book, function (key, value) {
+            switch (key) {
+                case "title":
+                    return 'YY';
+                case "authors":
+                    return "xxx";
+                case "edition":
+                    return 666;
+                case "year":
+                    return 2000;
+            }
+        });
+        console.log("book replace string:" + jsontextReplace);
+
+        //JSON.parse() json反序列化
+        var bookJson = JSON.parse(jsontext);
+        console.log(`book title:${bookJson.title}, authors:${bookJson.authors}, edition:${bookJson.edition}, year:${bookJson.year}`);
+
+        //JSON.parse() 也接受第二个参数，作用和stringify一样，都是用于定制反序列化的key-value
+        var bookJsonPro = JSON.parse(jsontext, function (key, value) {
+            switch (key) {
+                case "release":
+                    return new Date(value);
+                default:
+                    return value;
+            }
+        });
+        console.log('book pro:'+bookJsonPro);
+    </script>
+</body>
+
+</html>
