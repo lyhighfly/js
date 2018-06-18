@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OnErrorExample</title>
+</head>
+
+<body>
+    <script>
+        //没有任何try-catch的异常错误，最终都会交给window对象，在window的onerror中做处理
+        //onerror函数接收三个参数，错误名称，url和行号；
+        window.onerror = function (name, url, line) {
+            console.log("name:" + name + " url:" + url + " line:" + line);
+            return false;
+        };
+        // throw new SyntaxError("Syntax Error");
+        //assert(condition, message)，当condition为false时，抛出message; assert不是系统函数，需要自己定义
+        function assert(condition, message){//可以作为库函数调用，减少代码量
+            if(!condition){
+                throw new Error("Error:"+message);
+            }
+        }
+        var b = false;
+        assert(b, "one error happened");
+    </script>
+</body>
+
+</html>

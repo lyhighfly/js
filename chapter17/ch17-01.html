@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Try-Catch Example</title>
+</head>
+
+<body>
+    <script>
+        //关于错误类型，js中总共定义了七种类型：Error，EvalError，RangeError，ReferenceError，SyntaxError，TypeError，URIError
+        try{
+            throw new Error("Something bad happened");//自定义抛出异常
+            var item1 = new Array(-1);
+            window.callNoExistFunction();
+        }catch(error){
+            //每种错误信息都保存了name， message的属性
+            console.log(error.name);
+            console.log(error.message);
+        }finally{
+            console.log("after error happened finally run");
+        }
+
+        function CustomError(message){
+            this.name = "CustomError";
+            this.message = message;
+        }
+        CustomError.prototype = new Error();
+
+        try{
+            throw new CustomError("new Error Type");
+            //自定义抛出异常
+            throw new SyntaxError("I don`t like you syntax");
+            throw new TypeError("what type of variable do you take me for?");
+            throw new ReferenceError("You didn`t cite your refererence properly");
+        }catch(error){
+            console.log(error.name);
+            console.log(error.message);
+        }
+
+    </script>
+</body>
+
+</html>
