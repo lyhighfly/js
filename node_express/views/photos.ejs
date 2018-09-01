@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <title><%= title %></title> -->
+    <title>
+        <% settings.title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1>Photos</h1>
+    <p>Express stock photo applicaton</p>
+    <div id='photos'>
+        <% photos.forEach(function(photo){ %>
+            <div class="photo">
+                <h2>
+                    <%=photo.name%>
+                </h2>
+                <a href='/photos/download/<%=photo.id%>'>
+                    <img src='/photos/<%=photo.path%>' />
+                </a>
+            </div>
+            <% }) %>
+    </div>
+</body>
+
+</html>
